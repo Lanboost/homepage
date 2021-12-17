@@ -1,0 +1,58 @@
+# oauth2-proxy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oauth2-proxy
+  name: oauth2-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+      - name: oauth2-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.3-armv6
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4180
+          protocol: TCP
+        args:
+        - --provider=oidc
+        - --upstream=file:///dev/null
+        - --http-address=0.0.0.0:4180
+        - --cookie-secure=true
+        - --redirect-url=https://lanboost.net/oauth2/callback
+        - --skip-provider-button=false
+        - --set-xauthrequest=true
+        - --skip-auth-preflight=false
+        #- --skip-oidc-discovery
+        - --client-id=gatekeeper
+        - --client-secret=cefbd3aa-8fc3-4e4b-8f28-448c109faa14
+        - --pass-access-token=true
+        - --oidc-issuer-url=https://auth.lanboost.net/auth/realms/master
+        - --profile-url=https://auth.lanboost.net/auth/realms/master/protocol/openid-connect/userinfo
+        - --keycloak-group=group
+        - --cookie-secret=rLr4MFmZrZJC0NoB8qU9EA==
+        - --email-domain=*
+        - --insecure-oidc-allow-unverified-email
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oauth2-proxy
+  name: oauth2-proxy
+spec:
+  ports:
+  - name: http
+    port: 4180
+    protocol: TCP
+    targetPort: 4180
+  selector:
+    app: oauth2-proxy

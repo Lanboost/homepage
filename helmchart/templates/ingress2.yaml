@@ -1,0 +1,25 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  annotations:    
+    # These next three lines are only necessary if you're using cert-manager to generate TLS certificates
+#    ingress.kubernetes.io/force-ssl-redirect: "true"
+#    ingress.kubernetes.io/proxy-body-size: "1024m"
+#    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+#  name: my-cloud-application-ingress-oauth2
+#spec:
+#  tls:
+#  - hosts:
+#      - lanboost.net
+#    secretName: mycert
+#  rules:
+#  - host: lanboost.net
+#    http:
+#      paths:
+#      - path: /oauth2
+#        pathType: Prefix
+#        backend:
+#          service:
+#            name: oauth2-proxy
+#            port:
+#              number: 4180
