@@ -9,7 +9,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY . ./
 # install app dependencies
 COPY package.json ./
-RUN npm run install:clean
+RUN npm install
+RUN npm run build:tailwind
 
 # start app
 CMD ["npm", "run", "dev"]
