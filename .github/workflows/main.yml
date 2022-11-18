@@ -9,20 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: npm install, build, and test
-        - uses: actions/setup-node@v1
-          with:
-            node-version: 17
-        - run: npm install
-        - run: npm run build:tailwind
-        - run: npm run build
+        uses: actions/setup-node@v1
+        with:
+          node-version: 17
+        run: |
+          npm install
+          npm run build:tailwind
+          npm run build
       - name: Archive production artifacts
-          uses: actions/upload-artifact@v3
-          with:
-            name: github-pages
-            path: |
-              out
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: |
+            out
 
   # Deploy job
   deploy:
