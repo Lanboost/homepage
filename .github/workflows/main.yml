@@ -19,11 +19,8 @@ jobs:
           npm install
           npm run build:tailwind
           npm run export
-          zip -r mytest.zip out
-          rm -rf out
-          unzip mytest.zip -d out
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v1.0.7
         with:
           name: github-pages
           path: |
