@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import useSWR from 'swr'
+import getConfig from 'next/config'; 
+const { basePath } = getConfig()
 
 // components
 
@@ -31,8 +33,7 @@ export default function TerrariaPage() {
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage:
-                "url('/img/external/terraria-wallpaper.png')",
+              backgroundImage: `url('${basePath}/img/external/terraria-wallpaper.png')`,
             }}
           >
             <span
